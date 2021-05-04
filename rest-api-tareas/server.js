@@ -1,36 +1,23 @@
-require('dotenv').config(); //Para cargar las variables de entorno
-
-const express = require("express");
-const mongoose = require("mongoose");
-const cors = require("cors")
-
+require('dotenv').config();
+const express = require('express');
+const mongoose = require('mongoose');
 const app = express();
+const port = process.env.PORT || 5000;
+const cors = require('cors')
+var db = "";
 
-const port = 4000;
+try {
+    mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true }, () => console.log("connected"));
+    db = mongoose.connection;
+    db.on("error", (error) => console.error(error));
+    db.once("open", () => console.log("Conectando a la base de datos..."));
+} catch (error) {
+    console.log(error);
+}
 
-//Conexión BD
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true });
-
-const db = mongoose.connection;
-
-
-db.on("error", (error) => console.error(error));
-db.once("open", () => console.log("Conectando a la base de datos..."));
-
-//Prueba GET del servidor
-/*app.get("/", (req, res) => {
-    res.send("Hola mundo..probando..1..2...3");
-});*/
-
+const tareasRouter = require('./routes/tareas-routes');
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-app.use("/tareas", require("./routes/tareas-routes"));
-
-
-app.listen(port, () => {
-    console.log("El servidor esta escuchando....");
-});
-
-
+app.use("/tareas", tareasRouter);
+app.listen(port, () => console.log("escuchando"));
