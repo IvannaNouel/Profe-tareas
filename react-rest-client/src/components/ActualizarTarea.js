@@ -11,7 +11,7 @@ const ActualizarTarea = () => {
     useEffect(() => {
         const fetchTareas = async () => {
             try {
-                const response = await fetch(process.env.REACT_APP_API);
+                const response = await fetch("https://tareas-api-ivanna.us-south.cf.appdomain.cloud/tareas");
                 return response.json();
             } catch (err) {
                 console.log(err);
@@ -30,7 +30,7 @@ const ActualizarTarea = () => {
     }
 
     const updateTareas = (data) => {
-        fetch(`${process.env.REACT_APP_API}/${idAEditar}`, {
+        fetch(`${"https://tareas-api-ivanna.us-south.cf.appdomain.cloud/tareas"}/${idAEditar}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

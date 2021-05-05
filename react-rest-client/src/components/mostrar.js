@@ -22,7 +22,7 @@ class Mostrar extends Component {
     }
 
     componentDidMount() {
-        axios.get(process.env.REACT_APP_API)
+        axios.get('https://tareas-api-ivanna.us-south.cf.appdomain.cloud/tareas')
             .then(response => {
                 //console.log(this.state.todos);
                 this.setState({ tareas: response.data.data });

@@ -72,7 +72,7 @@ function getAllTareas(req, res) {
         if (error) {
             return res.status(500).json({
                 error: true,
-                message: "Server error",
+                message: "Server error"+ error,
                 code: 0
             }
             );

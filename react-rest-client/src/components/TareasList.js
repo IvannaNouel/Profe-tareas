@@ -10,7 +10,7 @@ const TareasList = () => {
     useEffect(() => {
         const fetchTareas = async () => {
             try {
-                const response = await fetch(process.env.REACT_APP_API);
+                const response = await fetch("https://tareas-api-ivanna.us-south.cf.appdomain.cloud/tareas");
                 return response.json();
             } catch (err) {
                 console.log(err);
@@ -21,7 +21,7 @@ const TareasList = () => {
 
     const deleteTarea = async (idx) => {
         try {
-            await fetch(`${process.env.REACT_APP_API}/${tareas[idx].id}`, {
+            await fetch(`${"https://tareas-api-ivanna.us-south.cf.appdomain.cloud/tareas"}/${tareas[idx].id}`, {
                 method: 'DELETE'
             });
             setTareas(tareas.filter((val, i) => i !== idx));
@@ -39,7 +39,7 @@ const TareasList = () => {
                 nuevoId = (parseInt(nuevoId.id) + 1).toString();
             }
             data = { ...data, id: nuevoId };
-            fetch(process.env.REACT_APP_API, {
+            fetch("https://tareas-api-ivanna.us-south.cf.appdomain.cloud/tareas", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
